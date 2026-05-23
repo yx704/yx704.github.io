@@ -9,185 +9,171 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         body {
-            background: #f0f7f4;
-            max-width: 800px;
-            margin: 0 auto;
+            background-color: #f0f8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
 
         .chat-container {
-            background: white;
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
             border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             overflow: hidden;
         }
 
-        .header {
-            background: #4CAF50;
+        .chat-header {
+            background-color: #4CAF50;
             color: white;
-            padding: 16px 20px;
-            font-size: 18px;
-            font-weight: 600;
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .header .icon {
-            width: 32px;
-            height: 32px;
-            background: white;
+        .header-icon {
+            width: 36px;
+            height: 36px;
+            background-color: white;
+            color: #4CAF50;
             border-radius: 8px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            color: #4CAF50;
+            align-items: center;
             font-weight: bold;
+            font-size: 18px;
         }
 
-        .messages {
-            flex: 1;
-            padding: 20px;
+        .chat-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            height: 500px;
             overflow-y: auto;
-            background: #fafafa;
+            padding: 20px;
+            background-color: white;
         }
 
         .message {
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            max-width: 85%;
-            line-height: 1.6;
-            word-wrap: break-word;
+            margin-bottom: 16px;
+            display: flex;
+            max-width: 80%;
         }
 
         .user-message {
-            background: #4CAF50;
-            color: white;
             margin-left: auto;
-            border-bottom-right-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 16px 16px 4px 16px;
+            padding: 12px 16px;
         }
 
         .ai-message {
-            background: white;
-            color: #333;
             margin-right: auto;
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background-color: #f1f1f1;
+            color: #333;
+            border-radius: 16px 16px 16px 4px;
+            padding: 12px 16px;
         }
 
-        .input-area {
+        .chat-input {
             display: flex;
-            padding: 16px;
+            padding: 20px;
             border-top: 1px solid #eee;
-            gap: 10px;
-            background: white;
+            gap: 12px;
         }
 
-        #userInput {
+        #user-input {
             flex: 1;
-            padding: 14px 18px;
-            border: 1px solid #ddd;
+            padding: 12px 16px;
+            border: 2px solid #4CAF50;
             border-radius: 24px;
             outline: none;
-            font-size: 15px;
-            background: #f9f9f9;
-            transition: border-color 0.2s;
+            font-size: 16px;
         }
 
-        #userInput:focus {
-            border-color: #4CAF50;
-            background: white;
-        }
-
-        #sendBtn {
-            padding: 14px 24px;
-            background: #4CAF50;
+        #send-btn {
+            padding: 12px 24px;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 24px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: 500;
-            transition: background 0.2s;
+            transition: background-color 0.2s;
         }
 
-        #sendBtn:disabled {
-            background: #a5d6a7;
+        #send-btn:disabled {
+            background-color: #a5d6a7;
             cursor: not-allowed;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 0.8s linear infinite;
-            margin-left: 8px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
-        <div class="header">
-            <div class="icon">养</div>
-            乐养 - 轻养生，乐生活
+        <div class="chat-header">
+            <div class="header-icon">养</div>
+            <div class="chat-title">乐养 - 轻养生，乐生活</div>
         </div>
-        <div class="messages" id="messages"></div>
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="和我聊聊养生相关的问题吧..." autocomplete="off">
-            <button id="sendBtn">发送</button>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message ai-message">你好呀！我是乐养AI助手，有什么养生问题都可以问我哦~</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="和我聊聊养生相关的问题吧...">
+            <button id="send-btn" onclick="sendMessage()">发送</button>
         </div>
     </div>
 
     <script>
-        // ====================== 在这里替换成你复制的信息 ======================
+        // ngrok 公网地址
         const DIFY_API_URL = "https://condense-coastal-deplored.ngrok-free.dev/v1/chat-messages";
+        // 你的 API 密钥
         const DIFY_API_KEY = "app-qqbtVOn9Nk7MuPCRzjnpk4yg";
-        // =================================================================
 
-        const messagesEl = document.getElementById("messages");
-        const userInput = document.getElementById("userInput");
-        const sendBtn = document.getElementById("sendBtn");
-
-        sendBtn.addEventListener("click", sendMessage);
-        userInput.addEventListener("keypress", (e) => {
-            if (e.key === "Enter" && !sendBtn.disabled) sendMessage();
-        });
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
 
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
 
+            // 添加用户消息
             addMessage(text, "user");
             userInput.value = "";
-            setLoading(true);
+            sendBtn.disabled = true;
+
+            // 添加思考中消息
+            const thinkingEl = document.createElement("div");
+            thinkingEl.className = "message ai-message";
+            thinkingEl.innerText = "思考中...";
+            chatMessages.appendChild(thinkingEl);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
                 const response = await fetch(DIFY_API_URL, {
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + DIFY_API_KEY,
-                        "Content-Type": "application/json"
-                        "ngrok-skip-browser-warning": "true"
+                        "Content-Type": "application/json",
+                        "ngrok-skip-browser-warning": "true" // 跳过 ngrok 验证页
                     },
                     body: JSON.stringify({
-                        inputs: {}, // 如果你的工作流有自定义变量，在这里传参
+                        inputs: {},
                         query: text,
                         response_mode: "blocking",
-                        user: "ghpages-user-" + Math.random().toString(36).substr(2, 8)
+                        user: "github-pages-user-" + Math.random().toString(36).substr(2, 8)
                     })
                 });
 
@@ -197,37 +183,37 @@
 
                 const data = await response.json();
                 const answer = data.answer || "暂时没有收到回复，换个问题试试吧~";
+
+                // 移除思考中消息
+                chatMessages.removeChild(thinkingEl);
+                // 添加 AI 回复
                 addMessage(answer, "ai");
 
             } catch (err) {
+                // 移除思考中消息
+                chatMessages.removeChild(thinkingEl);
+                // 显示错误信息
+                addMessage("出错啦：" + err.message, "ai");
                 console.error(err);
-                addMessage("出错啦：" + err.message + "，请检查 API 地址和 Key 是否正确", "ai");
-            }
-
-            setLoading(false);
-        }
-
-        function addMessage(text, sender) {
-            const div = document.createElement("div");
-            div.className = "message " + sender + "-message";
-            div.innerText = text;
-            messagesEl.appendChild(div);
-            messagesEl.scrollTop = messagesEl.scrollHeight;
-        }
-
-        function setLoading(loading) {
-            sendBtn.disabled = loading;
-            if (loading) {
-                sendBtn.innerHTML = `思考中<div class="loading"></div>`;
-            } else {
-                sendBtn.innerText = "发送";
+            } finally {
+                sendBtn.disabled = false;
             }
         }
 
-        // 页面加载完成后添加欢迎语
-        window.onload = () => {
-            addMessage("你好呀！我是乐养AI助手，有什么养生问题都可以问我哦~", "ai");
-        };
+        function addMessage(text, type) {
+            const messageEl = document.createElement("div");
+            messageEl.className = `message ${type}-message`;
+            messageEl.innerText = text;
+            chatMessages.appendChild(messageEl);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 支持回车发送
+        userInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
     </script>
 </body>
 </html>
