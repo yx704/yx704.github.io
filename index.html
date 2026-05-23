@@ -73,20 +73,17 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
-                // 改用 JSON 格式发送，解决 415 错误
+                // 构建请求体
                 const payload = {
                     query: text,
                     response_mode: "streaming",
-                    user: "user_" + Date.now(),
-                    conversation_id: conversationId || undefined
+                    user: "user_" + Date.now()
                 };
-
-                // 先处理文件上传（Dify 文件上传接口）
-                if (fileInput.files.length > 0) {
-                    // 这里简化处理，实际项目中需要先调用文件上传 API 获取 file_id
-                    payload.files = [];
+                if (conversationId) {
+                    payload.conversation_id = conversationId;
                 }
 
+                // 强制设置 Content-Type: application/json
                 const res = await fetch(API_URL, {
                     method: "POST",
                     headers: {
@@ -95,6 +92,11 @@
                     },
                     body: JSON.stringify(payload)
                 });
+
+                // 检查响应状态
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
 
                 const reader = res.body.getReader();
                 const decoder = new TextDecoder();
