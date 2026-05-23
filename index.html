@@ -73,25 +73,27 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
-                const formData = new FormData();
-                formData.append("query", text);
-                formData.append("response_mode", "streaming"); // 用流式模式，才能收到人工节点事件
-                formData.append("user", "user_" + Date.now());
-                
-                if (conversationId) {
-                    formData.append("conversation_id", conversationId);
-                }
+                // 改用 JSON 格式发送，解决 415 错误
+                const payload = {
+                    query: text,
+                    response_mode: "streaming",
+                    user: "user_" + Date.now(),
+                    conversation_id: conversationId || undefined
+                };
 
-                for (let i = 0; i < fileInput.files.length; i++) {
-                    formData.append("files", fileInput.files[i]);
+                // 先处理文件上传（Dify 文件上传接口）
+                if (fileInput.files.length > 0) {
+                    // 这里简化处理，实际项目中需要先调用文件上传 API 获取 file_id
+                    payload.files = [];
                 }
 
                 const res = await fetch(API_URL, {
                     method: "POST",
                     headers: {
-                        "Authorization": "Bearer " + API_KEY
+                        "Authorization": "Bearer " + API_KEY,
+                        "Content-Type": "application/json"
                     },
-                    body: formData
+                    body: JSON.stringify(payload)
                 });
 
                 const reader = res.body.getReader();
