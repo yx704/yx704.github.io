@@ -187,7 +187,7 @@
                             const data = JSON.parse(line.slice(5));
                             conversationId = data.conversation_id;
 
-                            // 人工录入节点
+                            // ✅ 关键修复：处理人工录入事件，显示表单提示
                             if (data.event === 'human_input_required') {
                                 chatMessages.removeChild(loading);
                                 addMessage(data.resolved_default_values.user_input);
@@ -195,12 +195,14 @@
                                 return;
                             }
 
-                            // 正常回答
+                            // 处理普通回答
                             if (data.event === 'message' && data.answer) {
                                 answer += data.answer;
                                 loading.innerText = answer;
                             }
-                        } catch (e) {}
+                        } catch (e) {
+                            console.error("解析错误:", e);
+                        }
                     }
                 }
 
@@ -209,6 +211,7 @@
 
             } catch (err) {
                 loading.innerText = '请求出错：' + err.message;
+                console.error(err);
             } finally {
                 sendBtn.disabled = false;
             }
