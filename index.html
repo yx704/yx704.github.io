@@ -21,21 +21,19 @@
             padding: 16px;
         }
 
-        /* 主容器 - 模拟手机聊天界面 */
         .chat-wrapper {
             width: 100%;
             max-width: 430px;
             height: 90vh;
             max-height: 850px;
-            background: #ffffff;
+            background: #fff;
             border-radius: 28px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* 顶部导航栏 */
         .chat-header {
             background: linear-gradient(90deg, #4CAF50 0%, #66BB6A 100%);
             color: white;
@@ -43,7 +41,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            flex-shrink: 0;
         }
 
         .header-icon {
@@ -57,64 +54,30 @@
             font-size: 20px;
         }
 
-        .header-text h1 {
-            font-size: 17px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .header-text p {
-            font-size: 12px;
-            opacity: 0.9;
-            margin: 2px 0 0;
-        }
-
-        /* 聊天内容区域 */
         .chat-content {
             flex: 1;
-            position: relative;
             background: #fafafa;
         }
 
-        /* Dify 嵌入 iframe */
         .chat-content iframe {
             width: 100%;
             height: 100%;
             border: none;
-            background: transparent;
-        }
-
-        /* 底部安全区域适配 */
-        .safe-area {
-            height: env(safe-area-inset-bottom, 0px);
-            background: #ffffff;
-            flex-shrink: 0;
         }
     </style>
 </head>
 <body>
     <div class="chat-wrapper">
-        <!-- 顶部导航 -->
         <div class="chat-header">
             <div class="header-icon">🌿</div>
-            <div class="header-text">
-                <h1>乐养健康助手</h1>
-                <p>轻养生，乐生活</p>
+            <div>
+                <h3>乐养健康助手</h3>
+                <p>AI 健康小管家</p>
             </div>
         </div>
-
-        <!-- 聊天内容区域 -->
         <div class="chat-content">
-            <!-- 替换为你的 Dify 应用地址 -->
-            <iframe
-                src="https://condense-coastal-deplored.ngrok-free.dev/chat/rqD4v8SwracjhjmT"
-                allow="clipboard-read; clipboard-write"
-                title="乐养健康助手">
-            </iframe>
+            <iframe src="https://condense-coastal-deplored.ngrok-free.dev/chat/rqD4v8SwracjhjmT" allow="clipboard-read; clipboard-write"></iframe>
         </div>
-
-        <!-- 适配 iPhone 底部安全区 -->
-        <div class="safe-area"></div>
     </div>
 </body>
 </html>
