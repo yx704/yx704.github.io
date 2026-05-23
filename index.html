@@ -166,8 +166,8 @@
                     method: "POST",
                     headers: {
                         "Authorization": "Bearer " + DIFY_API_KEY,
-                        "Content-Type": "application/json",
-                        "ngrok-skip-browser-warning": "true" // 跳过 ngrok 验证页
+                        "Content-Type": "application/json"
+                        // 去掉了 ngrok-skip-browser-warning 头
                     },
                     body: JSON.stringify({
                         inputs: {},
